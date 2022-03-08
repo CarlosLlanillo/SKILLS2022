@@ -1,0 +1,59 @@
+
+<div class="container">
+  
+    <div class="d-flex justify-content-between">
+      <h4>Edit person</h4>
+      <a href="#" routerLink="/person/index" class="btn btn-primaryt">Back</a>
+    </div>
+
+    <hr>
+
+    <form [formGroup]="form" (ngSubmit)="submit()">
+
+
+        <div class="form-group row">
+            <div class="col-md-6 ">
+              <label for="title">Nombre:</label>
+              <input
+                formControlName="nombre"
+                [(ngModel)]="animal.especie"
+                id="nombre"
+                type="text"
+                class="form-control">
+                <div *ngIf="f['nombre'].touched && f['nombre'].invalid" class="alert alert-danger">
+                    <div *ngIf="f['nombre'].errors['required']">*El nombre es obligatorio.</div>
+                    <div *ngIf="f['nombre'].errors['pattern']">*Solo debe contener letras.</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md-6 ">
+              <label for="alimentacion">Alimentacion:</label>
+              <input
+                formControlName="alimentacion"
+                [(ngModel)]="animal.alimentacion"
+                id="alimentacion"
+                type="text"
+                class="form-control">
+                <div *ngIf="f['alimentacion'].touched && f['alimentacion'].invalid" class="alert alert-danger">
+                    <div *ngIf="f['alimentacion'].errors['required']">*Debes incluir una alimentacion.</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md-6 ">
+              <label for="descripcion">Descripcion:</label>
+              <input
+                [(ngModel)]="animal.descripcion"
+                formControlName="descripcion"
+                id="descripcion"
+                type="text"
+                class="form-control">
+            </div>
+        </div>
+
+        <button class="btn btn-primary" type="submit" [disabled]="!form.valid">Update</button>
+    </form>
+</div>
