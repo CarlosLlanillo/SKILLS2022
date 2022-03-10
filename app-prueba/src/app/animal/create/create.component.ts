@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Animal } from '../animal';
 import { AnimalService } from '../animal.service';
 
 @Component({
@@ -10,13 +11,25 @@ import { AnimalService } from '../animal.service';
 })
 export class CreateComponent implements OnInit {
 
+  id: number = 0;
+  animal: Animal | any;
   form: FormGroup | any;
 
-  constructor(public animalService: AnimalService, private router: Router) {
-    
-   }
+  constructor(public animalService: AnimalService, private route: ActivatedRoute, private router: Router) {
+
+  }
 
   ngOnInit(): void {
+    this.id = this.route.snapshot.params['idAnimal'];
+    if (this.id == undefined)
+      console.log('Este form creara un animal')
+    else {
+      console.log('Este form editara un animal');
+      this.animalService.find(this.id).subscribe((data: Animal) => {
+        this.animal = data;
+      })
+    }
+
     this.form = new FormGroup({
       especie: new FormControl('', [Validators.required, Validators.pattern('')]),
       alimentacion: new FormControl('', [Validators.required]),
@@ -32,7 +45,7 @@ export class CreateComponent implements OnInit {
     console.log(this.form.value);
     this.animalService.create(this.form.value).subscribe(res => {
       console.log('Animal creado con exito!');
-      this.router.navigateByUrl('animal/index');
+      this.router.navigateByUrl('animales/index');
     })
   }
 }

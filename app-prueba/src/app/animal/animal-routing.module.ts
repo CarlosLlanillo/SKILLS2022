@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { IndexComponent } from './index/index.component';
-import { CreateComponent } from './create/create.component';
-import { EditComponent } from './edit/edit.component';
+import { FormComponent } from './form/form.component';
 
 const routes: Routes = [
-  {path:'animal',redirectTo:'animal/index',pathMatch:'full'},
-  {path:'animal/index', component:IndexComponent},
-  {path:'animal/create', component:CreateComponent},
-  {path:'animal/edit/:idAnimal', component:EditComponent},
+  {path:'',redirectTo:'animales/index',pathMatch:'full'},
+  {path:'animales',redirectTo:'animales/index',pathMatch:'full'},
+  {path:'animales/index', component:IndexComponent},
+  {path:'animales/create', component:FormComponent},
+  {path:'animales/edit/:idAnimal', component:FormComponent},
 ];
 
 @NgModule({

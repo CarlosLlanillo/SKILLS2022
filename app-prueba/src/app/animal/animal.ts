@@ -1,6 +1,6 @@
-export interface Animal {
-    id: number;
-    especie: string;
-    alimentacion: string;
-    descripcion: string;
+export class Animal {
+    id: number = 0;
+    especie: string = '';
+    alimentacion: string = '';
+    descripcion: string = '';
 }

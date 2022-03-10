@@ -12,14 +12,16 @@
 
 
         <div class="form-group row">
-            <div class="col-md-6 ">
-              <label for="title">Especie:</label>
+            <div class="col-md-12">
               <input
                 formControlName="especie"
                 [(ngModel)]="animal.especie"
                 id="especie"
                 type="text"
-                class="form-control">
+                class="form-control form-control-lg"
+                {{ngClass}}
+                placeholder="Especie"
+                readonly>
                 <div *ngIf="f.especie.touched && f.especie.invalid" class="alert alert-danger">
                     <div *ngIf="f.especie.errors.required">*El especie es obligatorio.</div>
                     <div *ngIf="f.especie.errors.pattern">*Solo debe contener letras.</div>
@@ -28,7 +30,7 @@
         </div>
 
         <div class="form-group row">
-            <div class="col-md-6 ">
+            <div class="col-md-6">
               <label for="alimentacion">Alimentacion:</label>
               <input
                 formControlName="alimentacion"
@@ -40,9 +42,9 @@
                     <div *ngIf="f.alimentacion.errors.required">*Debes incluir una alimentacion.</div>
                 </div>
             </div>
-        </div>
+<!--        </div>
 
-        <div class="form-group row">
+        <div class="form-group row">-->
             <div class="col-md-6 ">
               <label for="descripcion">Descripcion:</label>
               <textarea
@@ -54,6 +56,6 @@
             </div>
         </div>
 
-        <button class="btn btn-primary" type="submit" [disabled]="!form.valid">Update</button>
+        <button class="btn btn-primary" type="submit" [disabled]="!form.valid">{{submitText}}</button>
     </form>
 </div>

@@ -3,7 +3,7 @@
 
     <div class="d-flex justify-content-between">
       <h4>Form customer</h4>
-      <a href="#" routerLink="/animal/index" class="btn btn-primaryt">Back</a>
+      <a href="#" routerLink="/animales/index" class="btn btn-primaryt">Back</a>
     </div>
   
     <hr/>
@@ -15,6 +15,7 @@
                 <label for="title">Especie:</label>
                 <input
                   formControlName="especie"
+                  [(ngModel)]="animal.especie"
                   id="especie"
                   type="text"
                   class="form-control">
@@ -30,6 +31,7 @@
                 <label for="alimentacion">Alimentacion:</label>
                 <input
                   formControlName="alimentacion"
+                  [(ngModel)]="animal.alimentacion"
                   id="alimentacion"
                   type="text"
                   class="form-control">
@@ -42,11 +44,12 @@
           <div class="form-group row">
               <div class="col-md-6 ">
                 <label for="descripcion">Descripcion:</label>
-                <input
+                <textarea
                   formControlName="descripcion"
+                  [(ngModel)]="animal.descripcion"
                   id="descripcion"
                   type="text"
-                  class="form-control">
+                  class="form-control"></textarea>
               </div>
           </div>
   
