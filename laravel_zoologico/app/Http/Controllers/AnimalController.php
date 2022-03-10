@@ -14,6 +14,7 @@ class AnimalController extends Controller
 	{
 		$animales = Animal::all();
 		return view('animales.index', ['animales' => $animales]);
+		//return response()->json($animales);
 	}
 	public function create()
 	{

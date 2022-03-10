@@ -23,7 +23,7 @@ export class EditComponent implements OnInit {
       this.animal = data;
     })
     this.form = new FormGroup({
-      nombre: new FormControl('', [Validators.required, Validators.pattern('')]),
+      especie: new FormControl('', [Validators.required, Validators.pattern('')]),
       alimentacion: new FormControl('', [Validators.required]),
       descripcion: new FormControl(''),
     })

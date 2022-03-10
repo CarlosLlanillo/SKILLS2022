@@ -13,16 +13,16 @@
 
         <div class="form-group row">
             <div class="col-md-6 ">
-              <label for="title">Nombre:</label>
+              <label for="title">Especie:</label>
               <input
-                formControlName="nombre"
+                formControlName="especie"
                 [(ngModel)]="animal.especie"
-                id="nombre"
+                id="especie"
                 type="text"
                 class="form-control">
-                <div *ngIf="f['nombre'].touched && f['nombre'].invalid" class="alert alert-danger">
-                    <div *ngIf="f['nombre'].errors['required']">*El nombre es obligatorio.</div>
-                    <div *ngIf="f['nombre'].errors['pattern']">*Solo debe contener letras.</div>
+                <div *ngIf="f.especie.touched && f.especie.invalid" class="alert alert-danger">
+                    <div *ngIf="f.especie.errors.required">*El especie es obligatorio.</div>
+                    <div *ngIf="f.especie.errors.pattern">*Solo debe contener letras.</div>
                 </div>
             </div>
         </div>
@@ -36,8 +36,8 @@
                 id="alimentacion"
                 type="text"
                 class="form-control">
-                <div *ngIf="f['alimentacion'].touched && f['alimentacion'].invalid" class="alert alert-danger">
-                    <div *ngIf="f['alimentacion'].errors['required']">*Debes incluir una alimentacion.</div>
+                <div *ngIf="f.alimentacion.touched && f.alimentacion.invalid" class="alert alert-danger">
+                    <div *ngIf="f.alimentacion.errors.required">*Debes incluir una alimentacion.</div>
                 </div>
             </div>
         </div>
