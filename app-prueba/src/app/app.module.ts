@@ -7,7 +7,7 @@ import { AppComponent } from './app.component';
 
 import { AnimalModule } from './animal/animal.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-//import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgFallimgModule } from 'ng-fallimg';
 
 @NgModule({
   declarations: [
@@ -19,6 +19,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     AnimalModule,
     HttpClientModule,
     NgbModule,
+    NgFallimgModule.forRoot({
+      default: 'assets/reserva.png',
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent]

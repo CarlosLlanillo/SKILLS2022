@@ -1,6 +1,10 @@
 export class Animal {
-    id: number = 0;
+    id!: number;
     especie: string = '';
+    peso: number = 0;
+    altura: number = 0;
+    fechaNacimiento: Date =  new Date();
+    imagen: string = '';
     alimentacion: string = '';
     descripcion: string = '';
 }

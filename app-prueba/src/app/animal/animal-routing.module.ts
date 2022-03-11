@@ -8,7 +8,7 @@ const routes: Routes = [
   {path:'animales',redirectTo:'animales/index',pathMatch:'full'},
   {path:'animales/index', component:IndexComponent},
   {path:'animales/create', component:FormComponent},
-  {path:'animales/edit/:idAnimal', component:FormComponent},
+  {path:'animales/show/:idAnimal', component:FormComponent},
 ];
 
 @NgModule({

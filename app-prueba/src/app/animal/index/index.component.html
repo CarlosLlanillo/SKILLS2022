@@ -1,30 +1,40 @@
-
 <section>
 
-    <div class="d-flex justify-content-between">
-      <h4>Lista de animales</h4>
-      <a routerLink="/animales/create" class="btn btn-success">Crear nuevo animal</a>
-    </div>
+  <div class="d-flex justify-content-between">
+    <h4>Lista de animales</h4>
+    <a routerLink="/animales/create" class="btn btn-success">Crear nuevo animal</a>
+  </div>
 
-    <br>
-    
-    <table class="table ">
-      <tr>
-        <th>ID</th>
-        <th>Especie</th>
-        <th>Alimentación</th>
-        <th>Descripción</th>
-        <th width="220px">Acción</th>
-      </tr>
-      <tr *ngFor="let animal of animales">
-        <td>{{ animal.id }}</td>
-        <td>{{ animal.especie }}</td>
-        <td>{{ animal.alimentacion }}</td>
-        <td>{{ animal.descripcion }}</td>
-        <td>
-          <a  [routerLink]="['/animales/', 'edit', animal.id  ]" class="btn btn-primary">Editar</a>
-          <button type="button" (click)="deleteAnimal(animal.id)" class="btn btn-danger">Borrar</button>
-        </td>
-      </tr>
-    </table>
- </section>
+  <br>
+
+  <div class="row">
+    <div class="col-xs-12 col-sm-6 col-md-4" *ngFor="let animal of animales">
+      <a [routerLink]="['/animales/', 'show', animal.id  ]" style="text-decoration: none; color: black;">
+        <img [src]="'./assets/'+ animal.imagen" fallimg class="fluid"
+          style="height:200px" />
+        <div style="position: rigth">
+          <h4>{{ animal.especie }}</h4>
+          <ul>
+            <li>Peso: {{ animal.peso }}</li>
+            <li>Altura: {{ animal.altura }}</li>
+            <li>Edad: {{ animal.fechaNacimiento }}</li>
+            <li>Alimentacion: {{ animal.alimentacion }}</li>
+            <!--<li>Revisiones: {{ count(animal.revisiones) }}</li>-->
+          </ul>
+        </div>
+      </a>
+
+      <!--
+        @if (count(animal.cuidadores) > 0)
+            <h4>Cuidadores</h4>
+            @foreach (animal.cuidadores as $cuidador)
+                <ul>
+                    <a href="{{ route('cuidadores.show', $cuidador) }}">
+                        <li>{{ $cuidador.nombre }}</li>
+                    </a>
+                </ul>
+            @endforeach
+        @endif-->
+    </div>
+  </div>
+</section>

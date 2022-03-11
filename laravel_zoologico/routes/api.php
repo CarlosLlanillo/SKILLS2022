@@ -20,11 +20,3 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::apiResource('animales', AnimalController::class);
-
-/*Route::prefix('animales')->group(function () {
-    Route::get('/',[ AnimalController::class, 'index']);
-    Route::post('/',[ AnimalController::class, 'create']);
-    Route::delete('/{id}',[ AnimalController::class, 'destroy']);
-    Route::get('/{id}',[ AnimalController::class, 'show']);
-    Route::put('/{id}',[ AnimalController::class, 'update']);
-});*/
