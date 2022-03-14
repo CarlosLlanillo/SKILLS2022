@@ -20,6 +20,7 @@ class Animal extends Model
         'alimentacion',
         'descripcion',
         'slug',
+        'imagen',
       ];
 
     public function getRouteKeyName()

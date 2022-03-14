@@ -4,13 +4,12 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, Observable, throwError } from 'rxjs';
 
 import { Animal } from './animal';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AnimalService {
-  private apiURL = 'http://127.0.0.1:8000/api/animales/'
-
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json'
@@ -20,27 +19,27 @@ export class AnimalService {
   constructor(private httpClient: HttpClient) { }
 
   getAll(): Observable<Animal[]> {
-    return this.httpClient.get<Animal[]>(this.apiURL)
+    return this.httpClient.get<Animal[]>(environment.apiUrl)
       .pipe(catchError(this.errorHandler))
   }
 
   create(animal: Animal): Observable<Animal> {
-    return this.httpClient.post<Animal>(this.apiURL, JSON.stringify(animal), this.httpOptions)
+    return this.httpClient.post<Animal>(environment.apiUrl, JSON.stringify(animal), this.httpOptions)
       .pipe(catchError(this.errorHandler))
   }
 
   find(id: number): Observable<Animal> {
-    return this.httpClient.get<Animal>(this.apiURL + id)
+    return this.httpClient.get<Animal>(environment.apiUrl + id)
       .pipe(catchError(this.errorHandler))
   }
 
   update(id:number, animal:Animal): Observable<Animal> {
-    return this.httpClient.put<Animal>(this.apiURL + id, JSON.stringify(animal), this.httpOptions)
+    return this.httpClient.put<Animal>(environment.apiUrl + id, JSON.stringify(animal), this.httpOptions)
       .pipe(catchError(this.errorHandler))
   }
 
   delete(id:number): Observable<Animal> {
-    return this.httpClient.delete<Animal>(this.apiURL + id, this.httpOptions)
+    return this.httpClient.delete<Animal>(environment.apiUrl + id, this.httpOptions)
       .pipe(catchError(this.errorHandler))
   }
 

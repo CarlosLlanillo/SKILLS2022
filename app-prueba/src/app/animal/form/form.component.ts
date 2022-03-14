@@ -20,17 +20,9 @@ export class FormComponent implements OnInit {
 
   constructor(public animalService: AnimalService, private route: ActivatedRoute, private router: Router) { }
 
-  ngOnInit(): void {
-    this.id = this.route.snapshot.params['idAnimal'];
-    this.crear = this.id == undefined;
-    if (!this.crear) {
-      this.readonly = true;
-      this.submitText = 'Editar';
-      this.animalService.find(this.id).subscribe(animal => this.animal = animal);
-    }
-
+  crearForm(){
     this.form = new FormGroup({
-      especie: new FormControl({ disable: true }, [Validators.required, Validators.pattern('')]),
+      especie: new FormControl('', [Validators.required, Validators.pattern('')]),
       peso: new FormControl('', [Validators.required]),
       altura: new FormControl('', [Validators.required]),
       alimentacion: new FormControl('', [Validators.required]),
@@ -40,20 +32,28 @@ export class FormComponent implements OnInit {
     })
   }
 
+  ngOnInit(): void {
+    this.id = this.route.snapshot.params['idAnimal'];
+    this.crear = this.id == undefined;
+    if (!this.crear) {
+      this.readonly = true;
+      this.submitText = 'Editar';
+      this.animalService.find(this.id).subscribe(animal => this.animal = animal);
+    }
+
+    this.crearForm();
+  }
+
   get f() {
     return this.form.controls;
   }
 
-  submit() {
+  onSubmit() {
+    console.log(this.animal);
+    
     if (this.crear) this.create();
     else this.edit();
   }
-
-  reset() {
-    if (!this.crear)
-      this.animalService.find(this.id).subscribe(animal => this.animal = animal);
-  }
-
   create() {
     this.animalService.create(this.form.value).subscribe(animal => {
       console.log(animal);
@@ -61,7 +61,6 @@ export class FormComponent implements OnInit {
       this.router.navigateByUrl('animales/' + 'show/' + animal.id);
     })
   }
-
   edit() {
     if (this.readonly) {
       this.submitText = 'Actualizar'
@@ -74,6 +73,18 @@ export class FormComponent implements OnInit {
       this.submitText = 'Editar'
       this.readonly = true;
     }
+  }
 
+  onReset() {
+    if (this.crear)
+      this.router.navigateByUrl('animales/' + 'index');
+    else {
+      this.animalService.find(this.id).subscribe(animal => this.animal = animal);
+      this.readonly = true;
+    }
+  }
+
+  seleccionarArchivo(fileInput: Event) {
+    this.animal.imagen = (<HTMLInputElement>fileInput.target).files![0];
   }
 }
