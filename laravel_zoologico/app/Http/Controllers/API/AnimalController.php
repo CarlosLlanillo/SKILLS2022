@@ -36,10 +36,10 @@ class AnimalController extends Controller
         $a->altura = $request->altura;
         $a->fechaNacimiento = $request->fechaNacimiento;
         if ($request->hasFile('imagen')) {
-            $imagen = $request->file('imagen');
-            $extension = $imagen->getClientOriginalExtension();
+            $img = $request->file('imagen');
+            $extension = $img->getClientOriginalExtension();
             $compPic = str_replace(' ', '_', $a->especie . '-' . rand() . '_' . time() . '.' . $extension);
-            $a->imagen = $imagen->storeAs('', $compPic, 'animales');
+            $a->imagen = $img->storeAs('', $compPic, 'animales');
         }
         $a->alimentacion = $request->alimentacion;
         $a->descripcion = $request->descripcion;
@@ -68,31 +68,32 @@ class AnimalController extends Controller
      */
     public function update(Request $request, $id)
     {
-        /*$animal =  Animal::find($id);
+        $animal =  Animal::find($id);
         $animal->especie = $request->especie;
         $animal->slug = Str::slug($request->especie);
         $animal->peso = $request->peso;
         $animal->altura = $request->altura;
-        $animal->fechaNacimiento = $request->fechaNacimiento;*/
+        $animal->fechaNacimiento = $request->fechaNacimiento;
         if ($request->hasFile('imagen')) {
             //Storage::disk('animales')->delete($animal->imagen);
-            $completeName = $request->file('imagen')->getClientOriginalName();
+            $img = $request->file('imagen');
+            $completeName = $img->getClientOriginalName();
             $fileName = pathinfo($completeName, PATHINFO_FILENAME);
-            $extension = $request->file('imagen')->getClientOriginalExtension();
+            $extension = $img->getClientOriginalExtension();
             $compPic = str_replace(' ', '_', $fileName . '-' . rand() . '_' . time() . '.' . $extension);
             //dd($completeName);
-            dd($fileName);
-            dd($compPic);
+            //dd($fileName);
+            //dd($compPic);
             //Storage::disk('animales')->put($imagen->getClientOriginalName(),file_get_contents($imagen));
-            //$animal->imagen = $imagen->store('animales');
+            $animal->imagen = $img->storeAs('', $compPic, 'animales');
         }
-        /*$animal->alimentacion = $request->alimentacion;
+        $animal->alimentacion = $request->alimentacion;
         $animal->descripcion = $request->descripcion;
         $animal->save();
         return response()->json([
             'message' => "Successfully updated",
             'success' => true
-        ]);*/
+        ]);
     }
 
     /**
