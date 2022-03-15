@@ -8,7 +8,7 @@
 
     <hr>
 
-    <form [formGroup]="form" (ngSubmit)="submit()">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
       <div *ngFor="let campos of ">
 
       </div>
@@ -103,21 +103,25 @@
                 [readonly]="readonly">
               </textarea>
             </div>
-          </div>
 
-          <div class="form-group row" *ngIf="!readonly">
-            <div class="col-md-12">
-              <label for="imagen">Imagen:</label>
-              <input
-                [(ngModel)]="animal.imagen"
-                formControlName="imagen"
-                id="imagen"
-                type="file"
-                class="form-control">
-          </div>
+            <div class="form-group row" *ngIf="!readonly">
+              <div class="col-md-12 ">
+                <label for="imagen">Imagen:</label>
+                <input
+                  [(ngModel)]="animal.imagen"
+                  formControlName="imagen"
+                  id="imagen"
+                  type="file"
+                  accept="image/*"
+                  class="file-input"
+                  [ngClass]="[readonly ? 'form-control-plaintext' : 'form-control']"
+                  (change)="seleccionarArchivo($event)"
+                  [readonly]="readonly">
+              </div>
+            </div>
         </div>
 
         <button class="btn btn-primary" type="submit" [disabled]="!form.valid">{{submitText}}</button>
-        <button class="btn btn-primaryt" type="reset" (click)="reset()">Anular cambios</button>
+        <button class="btn btn-danger" type="reset" (click)="onReset()" *ngIf="!readonly">Cancelar</button>
     </form>
 </div>
