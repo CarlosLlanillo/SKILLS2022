@@ -27,7 +27,7 @@ export class FormComponent implements OnInit {
       altura: new FormControl('', [Validators.required]),
       alimentacion: new FormControl('', [Validators.required]),
       fechaNacimiento: new FormControl('', [Validators.required]),
-      imagen: new FormControl(''),
+      imagen: new FormControl('', []),
       descripcion: new FormControl(''),
     })
   }
@@ -49,15 +49,15 @@ export class FormComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.animal);
-    
+    //console.log(this.animal);
+
     if (this.crear) this.create();
     else this.edit();
   }
   create() {
-    this.animalService.create(this.form.value).subscribe(animal => {
+    this.animalService.create(this.animal).subscribe(animal => {
       console.log(animal);
-      console.log('Animal creado con exito!');
+      //console.log('Animal creado con exito!');
       this.router.navigateByUrl('animales/' + 'show/' + animal.id);
     })
   }
@@ -66,13 +66,20 @@ export class FormComponent implements OnInit {
       this.submitText = 'Actualizar'
       this.readonly = false;
     } else {
-      this.animalService.update(this.id, this.form.value).subscribe(animal => {
+      this.animalService.update(this.id, this.animal).subscribe(animal => {
         console.log(animal);
-        console.log('Animal editado con exito!');
+        //console.log('Animal editado con exito!');
       })
       this.submitText = 'Editar'
       this.readonly = true;
     }
+  }
+
+  delete() {
+    this.animalService.delete(this.animal.id).subscribe(res => {
+      console.log('Animal deleted successfully!');
+      this.router.navigateByUrl('animales/' + 'index');
+    })
   }
 
   onReset() {
@@ -84,7 +91,10 @@ export class FormComponent implements OnInit {
     }
   }
 
-  seleccionarArchivo(fileInput: Event) {
-    this.animal.imagen = (<HTMLInputElement>fileInput.target).files![0];
+  seleccionarArchivo(event: any) {
+    let formData = new FormData();
+    formData = event.target.files[0];
+    this.animal.imagen = formData;
+    console.log(this.animal.imagen);
   }
 }

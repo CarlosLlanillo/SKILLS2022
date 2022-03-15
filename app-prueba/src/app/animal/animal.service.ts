@@ -24,6 +24,8 @@ export class AnimalService {
   }
 
   create(animal: Animal): Observable<Animal> {
+    console.log(animal);
+    
     return this.httpClient.post<Animal>(environment.apiUrl, JSON.stringify(animal), this.httpOptions)
       .pipe(catchError(this.errorHandler))
   }
@@ -34,6 +36,8 @@ export class AnimalService {
   }
 
   update(id:number, animal:Animal): Observable<Animal> {
+    console.log(animal);
+    
     return this.httpClient.put<Animal>(environment.apiUrl + id, JSON.stringify(animal), this.httpOptions)
       .pipe(catchError(this.errorHandler))
   }

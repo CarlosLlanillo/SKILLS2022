@@ -10,7 +10,7 @@
   <div class="row">
     <div class="col-xs-12 col-sm-6 col-md-4" *ngFor="let animal of animales">
       <a [routerLink]="['/animales/', 'show', animal.id  ]" style="text-decoration: none; color: black;">
-        <img [src]="'./assets/'+ animal.imagen" fallimg class="fluid img-thumbnail rounded"
+        <img [src]="'http://127.0.0.1:8000/assets/imagenes/'+ animal.imagen" fallimg class="fluid img-thumbnail rounded"
           style="height:200px" />
         <div style="position: rigth">
           <h4>{{ animal.especie }}</h4>

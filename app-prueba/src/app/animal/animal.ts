@@ -4,7 +4,7 @@ export class Animal {
     peso: number = 0;
     altura: number = 0;
     fechaNacimiento: Date = new Date();
-    imagen: File | any;
+    imagen: any;
     alimentacion: string = '';
     descripcion: string = '';
 }

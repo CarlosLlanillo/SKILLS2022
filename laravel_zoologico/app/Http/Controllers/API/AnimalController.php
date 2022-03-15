@@ -44,6 +44,7 @@ class AnimalController extends Controller
         $a->alimentacion = $request->alimentacion;
         $a->descripcion = $request->descripcion;
         $a->save();
+        return response()->json($request);
         return response()->json($a);
     }
 
@@ -68,32 +69,28 @@ class AnimalController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $animal =  Animal::find($id);
-        $animal->especie = $request->especie;
-        $animal->slug = Str::slug($request->especie);
-        $animal->peso = $request->peso;
-        $animal->altura = $request->altura;
-        $animal->fechaNacimiento = $request->fechaNacimiento;
-        if ($request->hasFile('imagen')) {
-            //Storage::disk('animales')->delete($animal->imagen);
+        $a =  Animal::find($id);
+        $a->especie = $request->especie;
+        $a->slug = Str::slug($request->especie);
+        $a->peso = $request->peso;
+        $a->altura = $request->altura;
+        $a->fechaNacimiento = $request->fechaNacimiento;
+        if ($request->imagen) {
+            Storage::disk('animales')->delete($a->imagen);
             $img = $request->file('imagen');
-            $completeName = $img->getClientOriginalName();
-            $fileName = pathinfo($completeName, PATHINFO_FILENAME);
             $extension = $img->getClientOriginalExtension();
-            $compPic = str_replace(' ', '_', $fileName . '-' . rand() . '_' . time() . '.' . $extension);
-            //dd($completeName);
-            //dd($fileName);
-            //dd($compPic);
-            //Storage::disk('animales')->put($imagen->getClientOriginalName(),file_get_contents($imagen));
-            $animal->imagen = $img->storeAs('', $compPic, 'animales');
+            $compPic = str_replace(' ', '_', $a->especie . '-' . rand() . '_' . time() . '.' . $extension);
+            $a->imagen = $img->storeAs('', $compPic, 'animales');
         }
-        $animal->alimentacion = $request->alimentacion;
-        $animal->descripcion = $request->descripcion;
-        $animal->save();
-        return response()->json([
+        $a->alimentacion = $request->alimentacion;
+        $a->descripcion = $request->descripcion;
+        $a->save();
+        /*return response()->json([
             'message' => "Successfully updated",
             'success' => true
-        ]);
+        ]);*/
+        dd($a);
+        return response()->json($request);
     }
 
     /**
@@ -104,7 +101,9 @@ class AnimalController extends Controller
      */
     public function destroy($id)
     {
-        $res = Animal::find($id)->delete();
+        $a = Animal::find($id);
+        Storage::disk('animales')->delete($a->imagen);
+        $res = $a->delete();
         return response()->json([
             'message' => "Successfully deleted",
             'success' => true
