@@ -93,17 +93,28 @@
           </div>
 
           <div class="form-group row">
-            <div class="col-md-12 ">
+            <div class="col-md-12">
               <label for="descripcion">Descripcion:</label>
               <textarea
                 [(ngModel)]="animal.descripcion"
                 formControlName="descripcion"
                 id="descripcion"
-                type="text-area"
                 [ngClass]="[readonly ? 'form-control-plaintext' : 'form-control']"
                 [readonly]="readonly">
               </textarea>
             </div>
+          </div>
+
+          <div class="form-group row" *ngIf="!readonly">
+            <div class="col-md-12">
+              <label for="imagen">Imagen:</label>
+              <input
+                [(ngModel)]="animal.imagen"
+                formControlName="imagen"
+                id="imagen"
+                type="file"
+                class="form-control">
+          </div>
         </div>
 
         <button class="btn btn-primary" type="submit" [disabled]="!form.valid">{{submitText}}</button>

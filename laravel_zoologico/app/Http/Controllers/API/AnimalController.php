@@ -63,14 +63,16 @@ class AnimalController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $animal['especie'] = $request->especie;
-        $animal['peso'] = 0;
-        $animal['altura'] = 0;
-        $animal['fechaNacimiento'] = now();
-        $animal['alimentacion'] = $request->alimentacion;
-        $animal['descripcion'] = $request->descripcion;
-        $animal['slug'] = Str::slug($request->especie);
-        Animal::find($id)->update($animal);
+        $a = Animal::find($id);
+		$a->especie = $request->especie;
+		$a->slug = Str::slug($request->especie);
+		$a->peso = $request->peso;
+		$a->altura = $request->altura;
+		$a->fechaNacimiento = $request->fechaNacimiento;
+		//$a->imagen = $request->imagen->store("",'animales');
+		$a->alimentacion = $request->alimentacion;
+		$a->descripcion = $request->descripcion;
+		$a->save();
         return response()->json([
             'message' => "Successfully updated",
             'success' => true

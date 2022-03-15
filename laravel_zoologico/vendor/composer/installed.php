@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '85b5db76af96ef6dd53e275743555e917d6c222a',
+        'reference' => '681b484ec464f5da8c1835dee94b52ac42c1fc44',
         'name' => 'laravel/laravel',
         'dev' => true,
     ),
@@ -422,12 +422,12 @@
             ),
         ),
         'laravel-lang/lang' => array(
-            'pretty_version' => '10.4.8',
-            'version' => '10.4.8.0',
+            'pretty_version' => '10.4.9',
+            'version' => '10.4.9.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../laravel-lang/lang',
             'aliases' => array(),
-            'reference' => 'f7e71c467c0089575017c27288664f4c1d1c7870',
+            'reference' => '9344f34d9e285180a0c2ff136d24e6a1c21d5152',
             'dev_requirement' => false,
         ),
         'laravel/fortify' => array(
@@ -463,7 +463,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '85b5db76af96ef6dd53e275743555e917d6c222a',
+            'reference' => '681b484ec464f5da8c1835dee94b52ac42c1fc44',
             'dev_requirement' => false,
         ),
         'laravel/sail' => array(
@@ -874,8 +874,8 @@
         'psr/log-implementation' => array(
             'dev_requirement' => false,
             'provided' => array(
-                0 => '1.0|2.0',
-                1 => '1.0.0 || 2.0.0 || 3.0.0',
+                0 => '1.0.0 || 2.0.0 || 3.0.0',
+                1 => '1.0|2.0',
             ),
         ),
         'psr/simple-cache' => array(

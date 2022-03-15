@@ -14,6 +14,7 @@ return array(
     'App\\Actions\\Jetstream\\DeleteUser' => $baseDir . '/app/Actions/Jetstream/DeleteUser.php',
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
     'App\\Exceptions\\Handler' => $baseDir . '/app/Exceptions/Handler.php',
+    'App\\Http\\Controllers\\API\\AnimalController' => $baseDir . '/app/Http/Controllers/API/AnimalController.php',
     'App\\Http\\Controllers\\AnimalController' => $baseDir . '/app/Http/Controllers/AnimalController.php',
     'App\\Http\\Controllers\\Controller' => $baseDir . '/app/Http/Controllers/Controller.php',
     'App\\Http\\Controllers\\CuidadorController' => $baseDir . '/app/Http/Controllers/CuidadorController.php',
