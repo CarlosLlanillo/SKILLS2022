@@ -1,126 +1,90 @@
-
 <div class="container">
-  
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
     <div class="d-flex justify-content-between">
-      <h4>Animal</h4>
-      <a routerLink="/animales/index" class="btn btn-primaryt">Volver</a>
+      <h3>Animal</h3>
+      <button class="btn btn-primary" type="submit" [disabled]="!form.valid">{{submitText}}</button>
+      <button class="btn btn-danger" type="reset" (click)="onReset()" *ngIf="!readonly">Cancelar</button>
+      <button class="btn btn-danger" type="button" (click)="delete()">Eliminar</button>
+      <a routerLink="/animales/index" class="btn btn-dark">Volver</a>
     </div>
 
     <hr>
 
-    <form [formGroup]="form" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
-        <div class="form-group row">
-            <div class="col-md-6">
-              <input
-                formControlName="especie"
-                [(ngModel)]="animal.especie"
-                id="especie"
-                type="text"
-                class="form-control-lg"
-                placeholder="Especie"
-                [ngClass]="[readonly ? 'form-control-plaintext' : 'form-control']"
-                [readonly]="readonly">
-                <div *ngIf="f.especie.touched && f.especie.invalid" class="alert alert-danger">
-                    <div *ngIf="f.especie.errors.required">*El especie es obligatorio.</div>
-                    <div *ngIf="f.especie.errors.pattern">*Solo debe contener letras.</div>
-                </div>
-            </div>
-
-            <div class="col-md-6">
-              <img [src]="'http://127.0.0.1:8000/assets/imagenes/'+ animal.imagen" fallimg class="fluid img-thumbnail rounded" style="height:200px" />
-            </div>
+    <div class="form-group row">
+      <div [ngClass]="readonly ? 'col-md-6' : 'col-md-12'">
+        <input formControlName="especie" [(ngModel)]="animal.especie" id="especie" type="text" class="form-control-lg"
+          placeholder="Especie" [ngClass]="[readonly ? 'form-control-plaintext' : 'form-control']"
+          [readonly]="readonly">
+        <div *ngIf="f.especie.touched && f.especie.invalid" class="alert alert-danger">
+          <div *ngIf="f.especie.errors.required">*La especie es obligatoria.</div>
+          <div *ngIf="f.especie.errors.pattern">*Solo debe contener letras.</div>
         </div>
+      </div>
 
-        <div class="form-group row">
-            <div class="col-md-6">
-              <label for="alimentacion">Alimentacion:</label>
-              <input
-                formControlName="alimentacion"
-                [(ngModel)]="animal.alimentacion"
-                id="alimentacion"
-                type="text"
-                [ngClass]="[readonly ? 'form-control-plaintext' : 'form-control']"
-                [readonly]="readonly">
-                <div *ngIf="f.alimentacion.touched && f.alimentacion.invalid" class="alert alert-danger">
-                    <div *ngIf="f.alimentacion.errors.required">*Debes incluir una alimentacion.</div>
-                </div>
-            </div>
+      <div class="col-md-6" *ngIf="readonly">
+        <img [src]="'http://127.0.0.1:8000/assets/imagenes/'+ animal.imagen" fallimg class="fluid img-thumbnail rounded"
+          style="height:200px" />
+      </div>
+    </div>
 
-            <div class="col-md-6">
-              <label for="fechaNacimiento">Fecha de Nacimiento:</label>
-              <input
-                formControlName="fechaNacimiento"
-                [(ngModel)]="animal.fechaNacimiento"
-                id="fechaNacimiento"
-                type="date"
-                [ngClass]="[readonly ? 'form-control-plaintext' : 'form-control']"
-                [readonly]="readonly">
-                <div *ngIf="f.fechaNacimiento.touched && f.fechaNacimiento.invalid" class="alert alert-danger">
-                    <div *ngIf="f.fechaNacimiento.errors.required">*Debes incluir una fecha de nacimiento.</div>
-                </div>
-            </div>
-          </div>
+    <div class="form-group row">
+      <div class="col-md-6">
+        <label for="alimentacion">Alimentacion:</label>
+        <input formControlName="alimentacion" [(ngModel)]="animal.alimentacion" id="alimentacion" type="text"
+          [ngClass]="[readonly ? 'form-control-plaintext' : 'form-control']" [readonly]="readonly">
+        <div *ngIf="f.alimentacion.touched && f.alimentacion.invalid" class="alert alert-danger">
+          <div *ngIf="f.alimentacion.errors.required">*Debes incluir una alimentacion.</div>
+        </div>
+      </div>
 
-          <div class="form-group row">
-            <div class="col-md-6">
-              <label for="peso">Peso:</label>
-              <input
-                formControlName="peso"
-                [(ngModel)]="animal.peso"
-                id="peso"
-                type="number"
-                [ngClass]="[readonly ? 'form-control-plaintext' : 'form-control']"
-                [readonly]="readonly">
-                <div *ngIf="f.peso.touched && f.peso.invalid" class="alert alert-danger">
-                    <div *ngIf="f.peso.errors.required">*Debes incluir una peso.</div>
-                </div>
-            </div>
+      <div class="col-md-6">
+        <label for="fechaNacimiento">Fecha de Nacimiento:</label>
+        <input formControlName="fechaNacimiento" [(ngModel)]="animal.fechaNacimiento" id="fechaNacimiento" type="date"
+          [ngClass]="[readonly ? 'form-control-plaintext' : 'form-control']" [readonly]="readonly">
+        <div *ngIf="f.fechaNacimiento.touched && f.fechaNacimiento.invalid" class="alert alert-danger">
+          <div *ngIf="f.fechaNacimiento.errors.required">*Debes incluir una fecha de nacimiento.</div>
+        </div>
+      </div>
+    </div>
 
-            <div class="col-md-6">
-              <label for="altura">Altura:</label>
-              <input
-                formControlName="altura"
-                [(ngModel)]="animal.altura"
-                id="altura"
-                type="number"
-                [ngClass]="[readonly ? 'form-control-plaintext' : 'form-control']"
-                [readonly]="readonly">
-                <div *ngIf="f.altura.touched && f.altura.invalid" class="alert alert-danger">
-                    <div *ngIf="f.altura.errors.required">*Debes incluir una fecha de nacimiento.</div>
-                </div>
-            </div>
-          </div>
+    <div class="form-group row">
+      <div class="col-md-6">
+        <label for="peso">Peso:</label>
+        <input formControlName="peso" [(ngModel)]="animal.peso" id="peso" type="number"
+          [ngClass]="[readonly ? 'form-control-plaintext' : 'form-control']" [readonly]="readonly">
+        <div *ngIf="f.peso.touched && f.peso.invalid" class="alert alert-danger">
+          <div *ngIf="f.peso.errors.required">*Debes incluir una peso.</div>
+        </div>
+      </div>
 
-          <div class="form-group row">
-            <div class="col-md-12">
-              <label for="descripcion">Descripcion:</label>
-              <textarea
-                [(ngModel)]="animal.descripcion"
-                formControlName="descripcion"
-                id="descripcion"
-                [ngClass]="[readonly ? 'form-control-plaintext' : 'form-control']"
-                [readonly]="readonly">
+      <div class="col-md-6">
+        <label for="altura">Altura:</label>
+        <input formControlName="altura" [(ngModel)]="animal.altura" id="altura" type="number"
+          [ngClass]="[readonly ? 'form-control-plaintext' : 'form-control']" [readonly]="readonly">
+        <div *ngIf="f.altura.touched && f.altura.invalid" class="alert alert-danger">
+          <div *ngIf="f.altura.errors.required">*Debes incluir una fecha de nacimiento.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <div class="col-md-12">
+        <label for="descripcion">Descripcion:</label>
+        <textarea [(ngModel)]="animal.descripcion" formControlName="descripcion" id="descripcion"
+          [ngClass]="[readonly ? 'form-control-plaintext' : 'form-control']" [readonly]="readonly">
               </textarea>
-            </div>
+      </div>
 
-            <div class="form-group row" *ngIf="!readonly">
-              <div class="col-md-12 " >
-                <div class="file-input">
-                  <label for="imagen">Imagen:</label>
-                  <input
-                  [(ngModel)]="animal.imagen"
-                  formControlName="imagen"
-                  id="imagen"
-                  type="file"
-                  accept="image/*"
-                  (change)="seleccionarArchivo($event)">
-                </div>
-              </div>
-            </div>
+      <div class="form-group row" *ngIf="!readonly">
+        <div class="col-md-12">
+          <div>
+            <label for="imagen">Imagen:</label>
+            <input [(ngModel)]="animal.imagen" formControlName="imagen" id="imagen" type="file" accept="image/*"
+              class="form-control" (change)="seleccionarArchivo($event)">
+          </div>
         </div>
-
-        <button class="btn btn-primary" type="submit" [disabled]="!form.valid">{{submitText}}</button>
-        <button class="btn btn-danger" type="reset" (click)="onReset()" *ngIf="!readonly">Cancelar</button>
-        <button class="btn btn-danger" type="button" (click)="delete()" >Eliminar</button>
-    </form>
+      </div>
+    </div>
+  </form>
 </div>

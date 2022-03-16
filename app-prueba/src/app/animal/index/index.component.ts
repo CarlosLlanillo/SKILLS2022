@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { AnimalService } from '../animal.service';
-import { Animal } from '../animal';
+import { Animal } from '../animal.model';
 
 @Component({
   selector: 'app-index',

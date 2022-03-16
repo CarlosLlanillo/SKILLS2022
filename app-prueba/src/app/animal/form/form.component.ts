@@ -1,7 +1,8 @@
+import { HttpEventType, HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Animal } from '../animal';
+import { Animal } from '../animal.model';
 import { AnimalService } from '../animal.service';
 
 @Component({
@@ -20,7 +21,7 @@ export class FormComponent implements OnInit {
 
   constructor(public animalService: AnimalService, private route: ActivatedRoute, private router: Router) { }
 
-  crearForm(){
+  crearForm() {
     this.form = new FormGroup({
       especie: new FormControl('', [Validators.required, Validators.pattern('')]),
       peso: new FormControl('', [Validators.required]),
@@ -38,9 +39,10 @@ export class FormComponent implements OnInit {
     if (!this.crear) {
       this.readonly = true;
       this.submitText = 'Editar';
-      this.animalService.find(this.id).subscribe(animal => this.animal = animal);
+      this.animalService.find(this.id).subscribe(animal => {
+        this.animal = animal; console.log(animal);
+      });
     }
-
     this.crearForm();
   }
 
@@ -49,15 +51,14 @@ export class FormComponent implements OnInit {
   }
 
   onSubmit() {
-    //console.log(this.animal);
-
     if (this.crear) this.create();
     else this.edit();
   }
   create() {
     this.animalService.create(this.animal).subscribe(animal => {
-      console.log(animal);
-      //console.log('Animal creado con exito!');
+      this.animal.id = animal.id;
+      this.subirImagen();
+      console.log('Animal creado con exito!');
       this.router.navigateByUrl('animales/' + 'show/' + animal.id);
     })
   }
@@ -66,9 +67,10 @@ export class FormComponent implements OnInit {
       this.submitText = 'Actualizar'
       this.readonly = false;
     } else {
-      this.animalService.update(this.id, this.animal).subscribe(animal => {
-        console.log(animal);
-        //console.log('Animal editado con exito!');
+      this.subirImagen();
+      this.animalService.update(this.animal).subscribe(animal => {
+        this.animal = animal;
+        console.log('Animal editado con exito!');
       })
       this.submitText = 'Editar'
       this.readonly = true;
@@ -76,10 +78,7 @@ export class FormComponent implements OnInit {
   }
 
   delete() {
-    this.animalService.delete(this.animal.id).subscribe(res => {
-      console.log('Animal deleted successfully!');
-      this.router.navigateByUrl('animales/' + 'index');
-    })
+    this.animalService.delete(this.animal.id).subscribe(animal => this.router.navigateByUrl('animales/' + 'index'))
   }
 
   onReset() {
@@ -92,9 +91,26 @@ export class FormComponent implements OnInit {
   }
 
   seleccionarArchivo(event: any) {
-    let formData = new FormData();
-    formData = event.target.files[0];
-    this.animal.imagen = formData;
-    console.log(this.animal.imagen);
+    this.animal.imagen = event.target.files[0];
+  }
+
+  subirImagen(){
+    if (this.animal.imagen != undefined && typeof this.animal.imagen != 'string') {
+      this.animalService.imagen(this.animal).subscribe(
+        event => {
+          if (event.type == HttpEventType.UploadProgress) {
+            const percentDone = Math.round(100 * event.loaded / event.total!);
+            console.log(`File is ${percentDone}% loaded.`);
+          } else if (event instanceof HttpResponse) {
+            console.log('File is completely loaded!');
+          }
+        },
+        (err) => {
+          console.log("Upload Error:", err);
+        }, () => {
+          console.log("Upload done");
+        }
+      );
+    }
   }
 }

@@ -35,16 +35,9 @@ class AnimalController extends Controller
         $a->peso = $request->peso;
         $a->altura = $request->altura;
         $a->fechaNacimiento = $request->fechaNacimiento;
-        if ($request->hasFile('imagen')) {
-            $img = $request->file('imagen');
-            $extension = $img->getClientOriginalExtension();
-            $compPic = str_replace(' ', '_', $a->especie . '-' . rand() . '_' . time() . '.' . $extension);
-            $a->imagen = $img->storeAs('', $compPic, 'animales');
-        }
         $a->alimentacion = $request->alimentacion;
         $a->descripcion = $request->descripcion;
         $a->save();
-        return response()->json($request);
         return response()->json($a);
     }
 
@@ -75,13 +68,6 @@ class AnimalController extends Controller
         $a->peso = $request->peso;
         $a->altura = $request->altura;
         $a->fechaNacimiento = $request->fechaNacimiento;
-        if ($request->imagen) {
-            Storage::disk('animales')->delete($a->imagen);
-            $img = $request->file('imagen');
-            $extension = $img->getClientOriginalExtension();
-            $compPic = str_replace(' ', '_', $a->especie . '-' . rand() . '_' . time() . '.' . $extension);
-            $a->imagen = $img->storeAs('', $compPic, 'animales');
-        }
         $a->alimentacion = $request->alimentacion;
         $a->descripcion = $request->descripcion;
         $a->save();
@@ -89,8 +75,7 @@ class AnimalController extends Controller
             'message' => "Successfully updated",
             'success' => true
         ]);*/
-        dd($a);
-        return response()->json($request);
+        return response()->json($a);
     }
 
     /**
@@ -108,5 +93,16 @@ class AnimalController extends Controller
             'message' => "Successfully deleted",
             'success' => true
         ]);
+    }
+
+    public function imagen(Request $request, $id)
+    {
+        $a = Animal::find($id);
+        Storage::disk('animales')->delete($a->imagen);
+        $extension = $request->imagen->getClientOriginalExtension();
+        $compPic = str_replace(' ', '_', $a->especie . '-' . rand() . '_' . time() . '.' . $extension);
+        $a->imagen = $request->imagen->storeAs('', $compPic, 'animales');
+        $a->save();
+        return response()->json($a);
     }
 }
