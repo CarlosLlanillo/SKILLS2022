@@ -21,10 +21,10 @@ export class IndexComponent implements OnInit {
     })
   }
 
-  deleteAnimal(id:number) {
+  /*deleteAnimal(id:number) {
     this.animalService.delete(id).subscribe(res => {
       this.animales = this.animales.filter(item => item.id !== id);
       console.log('Animal deleted successfully!');
     })
-  }
+  }*/
 }

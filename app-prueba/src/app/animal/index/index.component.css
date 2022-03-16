@@ -1,0 +1,27 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+html{
+    margin: auto;
+}
+
+.animal{
+    text-align: center;
+    color: black;
+    padding: .5%;
+}
+
+.animal a{
+    text-decoration: none;
+    color: black;
+}
+
+.animal img {
+    height: 300px;
+}
+
+.btn{
+    padding: .5%;
+}

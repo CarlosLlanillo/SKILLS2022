@@ -2,29 +2,26 @@
 
   <div class="d-flex justify-content-between">
     <h4>Lista de animales</h4>
-    <a routerLink="/animales/create" class="btn btn-success">Crear nuevo animal</a>
+    <a routerLink="/animales/crear" class="btn btn-success">Crear nuevo animal</a>
   </div>
 
   <br>
 
-  <div class="row">
-    <div class="col-xs-12 col-sm-6 col-md-4" *ngFor="let animal of animales">
-      <a [routerLink]="['/animales/', 'show', animal.id  ]" style="text-decoration: none; color: black;">
-        <img [src]="'http://127.0.0.1:8000/assets/imagenes/'+ animal.imagen" fallimg class="fluid img-thumbnail rounded"
-          style="height:200px" />
-        <div style="position: rigth">
+  <div class="container marketing">
+    <div class="row">
+      <div class="col-lg-4  animal" *ngFor="let animal of animales">
+        <a [routerLink]="['/animales/', animal.id  ]">
+          <img [src]="'http://127.0.0.1:8000/assets/imagenes/'+ animal.imagen" fallimg class="img-flex img-thumbnail" />
           <h4>{{ animal.especie }}</h4>
-          <ul>
+          <!--<ul>
             <li>Peso: {{ animal.peso }}</li>
             <li>Altura: {{ animal.altura }}</li>
             <li>Edad: {{ animal.fechaNacimiento }}</li>
             <li>Alimentacion: {{ animal.alimentacion }}</li>
-            <!--<li>Revisiones: {{ count(animal.revisiones) }}</li>-->
-          </ul>
-        </div>
-      </a>
-
-      <!--
+            <li>Revisiones: {{ count(animal.revisiones) }}</li>
+          </ul>-->
+        </a>
+        <!--
         @if (count(animal.cuidadores) > 0)
             <h4>Cuidadores</h4>
             @foreach (animal.cuidadores as $cuidador)
@@ -35,6 +32,7 @@
                 </ul>
             @endforeach
         @endif-->
+      </div>
     </div>
   </div>
 </section>

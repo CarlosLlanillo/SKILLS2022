@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpEvent, HttpEventType, HttpHeaders, HttpParams, HttpRequest, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpEvent, HttpEventType, HttpHeaders, HttpParams, HttpRequest } from '@angular/common/http';
 
 import { catchError, Observable, throwError } from 'rxjs';
 
@@ -15,31 +15,32 @@ export class AnimalService {
       'Content-Type': 'application/json',
     })
   }
+  apiUrl = environment.apiUrl + 'animales/';
 
   constructor(private httpClient: HttpClient) { }
 
   getAll(): Observable<Animal[]> {
-    return this.httpClient.get<Animal[]>(environment.apiUrl)
+    return this.httpClient.get<Animal[]>(this.apiUrl)
       .pipe(catchError(this.errorHandler))
   }
 
   create(animal: Animal): Observable<Animal> {
-    return this.httpClient.post<Animal>(environment.apiUrl, animal, this.httpOptions)
+    return this.httpClient.post<Animal>(this.apiUrl, animal, this.httpOptions)
       .pipe(catchError(this.errorHandler));
   }
 
   find(id: number): Observable<Animal> {
-    return this.httpClient.get<Animal>(environment.apiUrl + id)
+    return this.httpClient.get<Animal>(this.apiUrl + id)
       .pipe(catchError(this.errorHandler))
   }
 
   update(animal: Animal): Observable<Animal> {
-    return this.httpClient.put<Animal>(environment.apiUrl + animal.id, animal, this.httpOptions)
+    return this.httpClient.put<Animal>(this.apiUrl + animal.id, animal, this.httpOptions)
       .pipe(catchError(this.errorHandler))
   }
 
   delete(id: number): Observable<Animal> {
-    return this.httpClient.delete<Animal>(environment.apiUrl + id, this.httpOptions)
+    return this.httpClient.delete<Animal>(this.apiUrl + id, this.httpOptions)
       .pipe(catchError(this.errorHandler))
   }
 
@@ -54,7 +55,7 @@ export class AnimalService {
       reportProgress: true,
     };
 
-    const req = new HttpRequest('POST', environment.apiUrl + animal.id + '/imagen', formData, options);
+    const req = new HttpRequest('POST', this.apiUrl + animal.id + '/imagen', formData, options);
     return this.httpClient.request(req);
   }
 

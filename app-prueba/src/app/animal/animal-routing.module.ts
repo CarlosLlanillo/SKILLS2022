@@ -4,11 +4,10 @@ import { IndexComponent } from './index/index.component';
 import { FormComponent } from './form/form.component';
 
 const routes: Routes = [
-  {path:'',redirectTo:'animales/index',pathMatch:'full'},
-  {path:'animales',redirectTo:'animales/index',pathMatch:'full'},
-  {path:'animales/index', component:IndexComponent},
-  {path:'animales/create', component:FormComponent},
-  {path:'animales/show/:idAnimal', component:FormComponent},
+  {path:'',redirectTo:'animales',pathMatch:'full'},
+  {path:'animales', component:IndexComponent},
+  {path:'animales/crear', component:FormComponent},
+  {path:'animales/:idAnimal', component:FormComponent},
 ];
 
 @NgModule({
