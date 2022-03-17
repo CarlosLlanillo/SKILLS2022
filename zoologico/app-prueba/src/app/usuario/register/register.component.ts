@@ -13,20 +13,16 @@ export class RegisterComponent implements OnInit {
   email: string = '';
   password: string = '';
   confirmPassword: string = '';
-  form: FormGroup | any;
+  form: FormGroup = new FormGroup({
+    email: new FormControl('', [Validators.required, Validators.email]),
+    password: new FormControl('', [Validators.required]),
+    confirmPassword: new FormControl('', [Validators.required]),
+  });
 
   constructor(public usuarioService: UsuarioService, public router: Router) { }
 
   ngOnInit(): void {
-    this.createForm();
-  }
 
-  createForm() {
-    this.form = new FormGroup({
-      email: new FormControl('', [Validators.required, Validators.email]),
-      password: new FormControl('', [Validators.required]),
-      confirmPassword: new FormControl('', [Validators.required]),
-    });
   }
 
   get f() {
