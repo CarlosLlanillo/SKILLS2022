@@ -2,22 +2,28 @@
     <form [formGroup]="form" (ngSubmit)="register()" class="custom-form" method="post">
       <h1>Registro</h1>
       <input
+        type="name"
+        formControlName="name"
+        [(ngModel)]="usuario.name"
+        id="name"
+        placeholder="Email"/>
+      <input
         type="email"
         formControlName="email"
-        [(ngModel)]="email"
+        [(ngModel)]="usuario.email"
         id="email"
         placeholder="Email"/>
       <input
         type="password"
         formControlName="password"
-        [(ngModel)]="password"
+        [(ngModel)]="usuario.password"
         id="password"
         placeholder="Password"/>
       <input
         type="password"
-        formControlName="confirmPassword"
-        [(ngModel)]="confirmPassword"
-        id="confirmPassword"
+        formControlName="password_confirmation"
+        [(ngModel)]="usuario.password_confirmation"
+        id="password_confirmation"
         placeholder="Repeat the password"/>
       <button type="submit">Register</button>
     </form>

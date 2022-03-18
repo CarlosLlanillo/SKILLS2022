@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AppComponent } from 'src/app/app.component';
+import { Usuario } from '../usuario';
 import { UsuarioService } from '../usuario.service';
 
 @Component({
@@ -10,8 +12,7 @@ import { UsuarioService } from '../usuario.service';
 })
 export class LoginComponent implements OnInit {
 
-  email: string = '';
-  password: string = '';
+  usuario: Usuario = new Usuario;
   form: FormGroup | any;
 
   constructor(public usuarioService: UsuarioService, public router: Router) { }
@@ -32,11 +33,10 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    const usuario = { email: this.email, password: this.password };
-    this.usuarioService.login(usuario).subscribe(data => {
+    this.usuarioService.login(this.usuario).subscribe(data => {
       console.log(data);
       this.usuarioService.setToken(data.token);
-      this.router.navigateByUrl('/');
+      this.router.navigateByUrl('');
     });
   }
 }

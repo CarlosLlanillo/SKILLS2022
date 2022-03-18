@@ -17,8 +17,8 @@ class AnimalController extends Controller
      */
     public function index()
     {
-        $animales = Animal::all();
-        return response()->json($animales);
+        return $animales = Animal::all();
+        //return response()->json($animales);
     }
 
     /**
@@ -40,12 +40,12 @@ class AnimalController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  str  $slug
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($slug)
     {
-        $animal = Animal::find($id);
+        $animal = Animal::where('slug', $slug)->first();
         return response()->json($animal);
     }
 

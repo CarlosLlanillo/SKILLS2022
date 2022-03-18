@@ -4,7 +4,6 @@ import { IndexComponent } from './index/index.component';
 import { FormComponent } from './form/form.component';
 
 const routes: Routes = [
-  {path:'',redirectTo:'animales',pathMatch:'full'},
   {path:'animales', component:IndexComponent},
   {path:'animales/crear', component:FormComponent},
   {path:'animales/:idAnimal', component:FormComponent},

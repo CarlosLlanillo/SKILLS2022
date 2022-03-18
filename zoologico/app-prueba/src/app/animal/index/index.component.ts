@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { AnimalService } from '../animal.service';
 import { Animal } from '../animal.model';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-index',
@@ -10,6 +11,7 @@ import { Animal } from '../animal.model';
 })
 export class IndexComponent implements OnInit {
   animales: Animal[] = [];
+  animalImg = environment.animalImg;
 
   //constructor() { }
   constructor(public animalService: AnimalService) { }

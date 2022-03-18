@@ -10,8 +10,8 @@
   <div class="container marketing">
     <div class="row">
       <div class="col-lg-4  animal" *ngFor="let animal of animales">
-        <a [routerLink]="['/animales/', animal.id  ]">
-          <img [src]="'http://127.0.0.1:8000/assets/imagenes/'+ animal.imagen" fallimg class="img-flex img-thumbnail" />
+        <a [routerLink]="['/animales/', animal.slug  ]">
+          <img [src]="animalImg + animal.imagen" fallimg class="img-flex img-thumbnail" />
           <h4>{{ animal.especie }}</h4>
           <!--<ul>
             <li>Peso: {{ animal.peso }}</li>

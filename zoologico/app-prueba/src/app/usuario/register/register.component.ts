@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Usuario } from '../usuario';
 import { UsuarioService } from '../usuario.service';
 
 @Component({
@@ -10,13 +11,12 @@ import { UsuarioService } from '../usuario.service';
 })
 export class RegisterComponent implements OnInit {
 
-  email: string = '';
-  password: string = '';
-  confirmPassword: string = '';
+  usuario = new Usuario;
   form: FormGroup = new FormGroup({
+    name: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required]),
-    confirmPassword: new FormControl('', [Validators.required]),
+    password_confirmation: new FormControl('', [Validators.required]),
   });
 
   constructor(public usuarioService: UsuarioService, public router: Router) { }
@@ -30,8 +30,7 @@ export class RegisterComponent implements OnInit {
   }
 
   register() {
-    const usuario = { email: this.email, password: this.password, confirmPassword: this.confirmPassword };
-    this.usuarioService.register(usuario).subscribe(data => {
+    this.usuarioService.register(this.usuario).subscribe(data => {
       console.log(data);
       this.usuarioService.setToken(data.token);
       this.router.navigateByUrl('/');

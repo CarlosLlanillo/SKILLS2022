@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
-import { Observable } from 'rxjs';
+import { catchError, Observable, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -10,30 +10,46 @@ import { environment } from 'src/environments/environment';
 export class UsuarioService {
   httpOptions = {
     headers: new HttpHeaders({
-      'Content-Type': 'application/json',
+      'Accept': 'application/json',
     }),
   };
-  apiUrl = '127.0.0.1:8000/';
 
   constructor(private httpClient: HttpClient, private cookies: CookieService) { }
 
   login(usuario: any): Observable<any> {
-    let x: any;
-    this.httpClient.get(this.apiUrl + 'sanctum/csrf-cookie').subscribe(res => {
-      x = this.httpClient.post(environment.apiUrl + 'login', usuario, this.httpOptions);
-    });
-    return x;
+    return this.httpClient.post(environment.apiUrl + 'login', usuario, this.httpOptions)
+      .pipe(catchError(this.errorHandler));
   }
 
   register(usuario: any): Observable<any> {
-    return this.httpClient.post(environment.apiUrl, usuario, this.httpOptions);
+    return this.httpClient.post(environment.apiUrl + 'register', usuario, this.httpOptions)
+      .pipe(catchError(this.errorHandler));
   }
 
   setToken(token: string) {
-    return this.cookies.set('token', token);
+    return localStorage.setItem('token', token) //this.cookies.set('token', token);
   }
 
-  getToken(token: string) {
-    return this.cookies.get('token');
+  get getToken() {
+    return localStorage.getItem('token'); // this.cookies.get('token');
+  }
+
+  removeToken() {
+    const httpOptions = {
+      headers: this.httpOptions.headers.append('Authorization', `Bearer ${this.getToken}`)
+    };
+    localStorage.clear();
+    return this.httpClient.post(environment.apiUrl + 'logout', null, httpOptions)
+      .pipe(catchError(this.errorHandler));
+  }
+
+  errorHandler(error: any) {
+    let errorMessage = '';
+    if (error.error instanceof ErrorEvent)
+      errorMessage = error.error.message;
+    else
+      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+
+    return throwError(() => new Error(errorMessage));
   }
 }

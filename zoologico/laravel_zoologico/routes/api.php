@@ -16,10 +16,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Public User routes
+Route::post('/register',[LoginController::class, 'register']);
+Route::post('/login',[LoginController::class, 'login']);
+
+Route::post('animales/{animal}/imagen', [AnimalController::class, 'imagen']);
+// Private routes
+Route::group(['middleware' => ['auth:sanctum']], function() {
+    Route::post('/animales',[AnimalController::class, 'store']);
+    Route::post('/logout',[LoginController::class, 'logout']);
+});
+
+//Public Animal routes
+Route::apiResource('/animales', AnimalController::class);
+
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-
-Route::middleware('auth:sanctum')->post('/login', [LoginController::class, 'authenticate']);
-Route::post('animales/{animal}/imagen', [AnimalController::class, 'imagen']);
-Route::apiResource('animales', AnimalController::class);

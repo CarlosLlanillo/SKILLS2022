@@ -29,8 +29,12 @@ export class AnimalService {
       .pipe(catchError(this.errorHandler));
   }
 
-  find(id: number): Observable<Animal> {
+  findId(id: number): Observable<Animal> {
     return this.httpClient.get<Animal>(this.apiUrl + id)
+      .pipe(catchError(this.errorHandler))
+  }
+  findSlug(slug: string): Observable<Animal> {
+    return this.httpClient.get<Animal>(this.apiUrl + slug)
       .pipe(catchError(this.errorHandler))
   }
 

@@ -34,13 +34,14 @@ export class FormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.id = this.route.snapshot.params['idAnimal'];
+    this.animal.slug = this.route.snapshot.params['idAnimal'];
     this.crear = this.id == undefined;
     if (!this.crear) {
       this.readonly = true;
       this.submitText = 'Editar';
-      this.animalService.find(this.id).subscribe(animal => {
-        this.animal = animal; console.log(animal);
+      this.animalService.findSlug(this.animal.slug).subscribe(animal => {
+        this.animal = animal;
+        console.log(animal);
       });
     }
     this.crearForm();
@@ -85,7 +86,7 @@ export class FormComponent implements OnInit {
     if (this.crear)
       this.router.navigateByUrl('animales/' + 'index');
     else {
-      this.animalService.find(this.id).subscribe(animal => this.animal = animal);
+      this.animalService.findSlug(this.animal.slug).subscribe(animal => this.animal = animal);
       this.readonly = true;
     }
   }
@@ -94,7 +95,7 @@ export class FormComponent implements OnInit {
     this.animal.imagen = event.target.files[0];
   }
 
-  subirImagen(){
+  subirImagen() {
     if (this.animal.imagen != undefined && typeof this.animal.imagen != 'string') {
       this.animalService.imagen(this.animal).subscribe(
         event => {
