@@ -29,16 +29,12 @@ class AnimalController extends Controller
      */
     public function store(Request $request)
     {
-        $a = new Animal();
-        $a->especie = $request->especie;
-        $a->slug = Str::slug($request->especie);
-        $a->peso = $request->peso;
-        $a->altura = $request->altura;
-        $a->fechaNacimiento = $request->fechaNacimiento;
-        $a->alimentacion = $request->alimentacion;
-        $a->descripcion = $request->descripcion;
-        $a->save();
-        return response()->json($a);
+        $request->validate([
+            'especie' => 'required',
+            'slug' => 'required'
+        ]);
+
+        return Animal::create($request->all());
     }
 
     /**
@@ -62,8 +58,9 @@ class AnimalController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $a =  Animal::find($id);
-        $a->especie = $request->especie;
+
+        return Animal::find($id)->update($request->all());
+        /*$a->especie = $request->especie;
         $a->slug = Str::slug($request->especie);
         $a->peso = $request->peso;
         $a->altura = $request->altura;
@@ -71,11 +68,11 @@ class AnimalController extends Controller
         $a->alimentacion = $request->alimentacion;
         $a->descripcion = $request->descripcion;
         $a->save();
-        /*return response()->json([
+        return response()->json([
             'message' => "Successfully updated",
             'success' => true
-        ]);*/
-        return response()->json($a);
+        ]);
+        return response()->json($a);*/
     }
 
     /**
