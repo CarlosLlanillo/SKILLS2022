@@ -1,8 +1,8 @@
 <div class="login">
-    <form class="custom-form" method="post">
+    <form [formGroup]="form" (ngSubmit)="login()" class="custom-form" method="post">
         <h1>Login</h1>
         <input type="email" formControlName="email" [(ngModel)]="email" id="email" placeholder="Email" />
         <input type="password" formControlName="password" [(ngModel)]="password" id="password" placeholder="Password" />
-        <button type="submit" (click)="login()">Log in</button>
+        <button type="submit">Log in</button>
     </form>
 </div>

@@ -12,12 +12,17 @@ export class UsuarioService {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
     }),
-  }
+  };
+  apiUrl = '127.0.0.1:8000/';
 
   constructor(private httpClient: HttpClient, private cookies: CookieService) { }
 
   login(usuario: any): Observable<any> {
-    return this.httpClient.post(environment.apiUrl, usuario, this.httpOptions);
+    let x: any;
+    this.httpClient.get(this.apiUrl + 'sanctum/csrf-cookie').subscribe(res => {
+      x = this.httpClient.post(environment.apiUrl + 'login', usuario, this.httpOptions);
+    });
+    return x;
   }
 
   register(usuario: any): Observable<any> {
@@ -25,7 +30,7 @@ export class UsuarioService {
   }
 
   setToken(token: string) {
-    return this.cookies.set('token',token);
+    return this.cookies.set('token', token);
   }
 
   getToken(token: string) {

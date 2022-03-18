@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\AnimalController;
+use App\Http\Controllers\LoginController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -15,10 +16,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-
+Route::middleware('auth:sanctum')->post('/login', [LoginController::class, 'authenticate']);
 Route::post('animales/{animal}/imagen', [AnimalController::class, 'imagen']);
 Route::apiResource('animales', AnimalController::class);
