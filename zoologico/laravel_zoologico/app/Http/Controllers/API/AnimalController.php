@@ -15,9 +15,11 @@ class AnimalController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return $animales = Animal::all();
+        //$group = [];
+        return Animal::all();
+        //return $animales = Animal::all();
         //return response()->json($animales);
     }
 

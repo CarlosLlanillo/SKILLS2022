@@ -1,30 +1,67 @@
-<div class="register">
-    <form [formGroup]="form" (ngSubmit)="register()" class="custom-form" method="post">
-      <h1>Registro</h1>
-      <input
-        type="name"
-        formControlName="name"
-        [(ngModel)]="usuario.name"
-        id="name"
-        placeholder="Email"/>
-      <input
-        type="email"
-        formControlName="email"
-        [(ngModel)]="usuario.email"
-        id="email"
-        placeholder="Email"/>
-      <input
-        type="password"
-        formControlName="password"
-        [(ngModel)]="usuario.password"
-        id="password"
-        placeholder="Password"/>
-      <input
-        type="password"
-        formControlName="password_confirmation"
-        [(ngModel)]="usuario.password_confirmation"
-        id="password_confirmation"
-        placeholder="Repeat the password"/>
-      <button type="submit">Register</button>
-    </form>
-  </div>
+<div class="container mt-4">
+  <header class="bg-dark text-white p-2 mb-2 text-center">
+    <h1>Registro</h1>
+  </header>
+
+  <form [formGroup]="form" (ngSubmit)="register()" method="post">
+    <div class="form-group">
+      <label for="name">Nombre:</label>
+      <input type="text" name="name" class="form-control" formControlName="name" [(ngModel)]="usuario.name" id="name"
+        placeholder="Nombre" [ngClass]="{'is-invalid':f.name.touched && f.name.errors}" />
+
+      <div *ngIf="f.name.touched && f.name.errors" class="invalid-feedback">
+        <div *ngIf="f.name.errors.required">
+          El NOMBRE es obligatorio.
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email:</label>
+      <input type="email" name="email" class="form-control" formControlName="email" [(ngModel)]="usuario.email"
+        id="email" placeholder="Email" [ngClass]="{'is-invalid':f.email.touched && f.email.errors}" />
+
+      <div *ngIf="f.email.touched && f.email.errors" class="invalid-feedback">
+        <div *ngIf="f.email.errors.required">
+          El EMAIL es obligatorio.
+        </div>
+        <div *ngIf="f.email.errors.email">
+          Debe ser un EMAIL valido.
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="password">Contraseña:</label>
+      <input type="password" name="password" class="form-control" formControlName="password"
+        [(ngModel)]="usuario.password" id="password" placeholder="password"
+        [ngClass]="{'is-invalid':f.password.touched && f.password.errors}" />
+
+      <div *ngIf="f.password.touched && f.password.errors" class="invalid-feedback">
+        <div *ngIf="f.password.errors.required">
+          La contrseña es obligatoria.
+        </div>
+        <div *ngIf="f.password.errors.minlength">
+          Deben contener como minimo seis caracteres.
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="password_confirmation">Confirmar contraseña:</label>
+      <input type="password" class="form-control" formControlName="password_confirmation"
+        [(ngModel)]="usuario.password_confirmation" id="password_confirmation" placeholder="Repeat the password"
+        [ngClass]="{'is-invalid':f.password_confirmation.touched && f.password_confirmation.errors}" />
+
+      <div *ngIf="f.password_confirmation.touched && f.password_confirmation.errors" class="invalid-feedback">
+        <div *ngIf="f.password_confirmation.errors.required">
+          Confirmar Contraseña es obligatorio
+        </div>
+        <div *ngIf="f.password_confirmation.errors.mustMatch">
+          Debe coincidir con la contraseña.
+        </div>
+      </div>
+    </div>
+    <button type="submit" [disabled]="!form.valid">Register</button>
+  </form>
+</div>

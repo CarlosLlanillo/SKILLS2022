@@ -9,6 +9,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FormComponent } from './form/form.component';
 import { NgFallimgModule } from 'ng-fallimg';
 import { RevisionComponent } from './revision/revision.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 @NgModule({
@@ -23,6 +24,7 @@ import { RevisionComponent } from './revision/revision.component';
     FormsModule,
     ReactiveFormsModule,
     NgFallimgModule,
+    NgxPaginationModule,
   ]
 })
 export class AnimalModule { }

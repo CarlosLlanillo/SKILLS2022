@@ -12,14 +12,20 @@ import { environment } from 'src/environments/environment';
 export class IndexComponent implements OnInit {
   animales: Animal[] = [];
   animalImg = environment.animalImg;
+  page: number = 0;
 
   //constructor() { }
   constructor(public animalService: AnimalService) { }
 
   ngOnInit(): void {
-    this.animalService.getAll().subscribe((data: Animal[]) => {
+    this.animalService.getAll().subscribe(data => {
       this.animales = data;
-      console.log(this.animales);
+    })
+  }
+
+  siguientes() {
+    this.animalService.getAll().subscribe(data => {
+      this.animales = data;
     })
   }
 

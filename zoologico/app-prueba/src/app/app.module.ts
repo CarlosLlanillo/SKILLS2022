@@ -14,6 +14,7 @@ import { NgFallimgModule } from 'ng-fallimg';
 import { AnimalModule } from './animal/animal.module';
 import { CuidadorComponent } from './cuidador/cuidador.component';
 import { UsuarioModule } from './usuario/usuario.module';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 
@@ -32,6 +33,7 @@ import { UsuarioModule } from './usuario/usuario.module';
     NgFallimgModule.forRoot({
       default: 'assets/reserva.png',
     }),
+    NgxPaginationModule,
   ],
   providers: [CookieService],
   bootstrap: [AppComponent]
