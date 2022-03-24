@@ -9,7 +9,7 @@
 
   <div class="container marketing">
     <div class="row">
-      <div class="col-lg-4  animal" *ngFor="let animal of animales">
+      <div class="col-lg-4  animal" *ngFor="let animal of animales | paginate: { itemsPerPage: 6, currentPage: page } ">
         <a [routerLink]="['/animales/', animal.slug  ]">
           <img [src]="animalImg + animal.imagen" fallimg class="img-flex img-thumbnail" />
           <h4>{{ animal.especie }}</h4>
@@ -35,4 +35,6 @@
       </div>
     </div>
   </div>
+  <pagination-controls (pageChange)="page = $event" previousLabel="Anterior" nextLabel="Siguiente">
+  </pagination-controls>
 </section>

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpEvent, HttpEventType, HttpHeaders, HttpParams, HttpRequest } from '@angular/common/http';
+import { HttpClient, HttpEvent, HttpHeaders, HttpParams, HttpRequest } from '@angular/common/http';
 
 import { catchError, Observable, throwError } from 'rxjs';
 
@@ -12,8 +12,8 @@ import { environment } from 'src/environments/environment';
 export class AnimalService {
   httpOptions = {
     headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-    })
+      'Accept': 'application/json',
+    }),
   }
   apiUrl = environment.apiUrl + 'animales/';
 
@@ -21,7 +21,14 @@ export class AnimalService {
 
   getAll(): Observable<Animal[]> {
     return this.httpClient.get<Animal[]>(this.apiUrl)
-      .pipe(catchError(this.errorHandler))
+      .pipe(catchError(this.errorHandler));
+  }
+
+  slice(offset: number, length: number): Observable<Animal[]> {
+    let httpParams = new HttpParams().set('offset', offset).set('length', length);
+    let httpOptions = { headers: this.httpOptions.headers, params: httpParams };
+    return this.httpClient.get<Animal[]>(this.apiUrl, httpOptions)
+      .pipe(catchError(this.errorHandler));
   }
 
   create(animal: Animal): Observable<Animal> {
