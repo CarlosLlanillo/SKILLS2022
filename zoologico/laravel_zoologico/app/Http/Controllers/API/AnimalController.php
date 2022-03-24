@@ -17,7 +17,7 @@ class AnimalController extends Controller
      */
     public function index()
     {
-        return $animales = Animal::all();
+        return Animal::all();
         //return response()->json($animales);
     }
 

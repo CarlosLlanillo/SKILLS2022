@@ -6,11 +6,12 @@ import { RegisterComponent } from './usuario/register/register.component';
 
 
 const routes: Routes = [
-  //{ path: '**', pathMatch: 'full', redirectTo: 'home' },
+  { path: "", pathMatch: 'full', redirectTo: 'animales' },
   { path: "login", component: LoginComponent, pathMatch: "full" },
   { path: "register", component: RegisterComponent, pathMatch: "full" },
+
   // Esta objeto redirecciona a una ruta especifica cuando no encuentra una ruta específica
-  { path: '**', pathMatch: 'full', redirectTo: 'animales' },
+  { path: '**', redirectTo: 'animales' },
 ];
 
 @NgModule({

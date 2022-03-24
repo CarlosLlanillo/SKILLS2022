@@ -17,14 +17,14 @@ use Illuminate\Support\Facades\Route;
 */
 
 // Public User routes
-Route::post('/register',[LoginController::class, 'register']);
-Route::post('/login',[LoginController::class, 'login']);
+Route::post('/register', [LoginController::class, 'register']);
+Route::post('/login', [LoginController::class, 'login']);
 
 Route::post('animales/{animal}/imagen', [AnimalController::class, 'imagen']);
 // Private routes
-Route::group(['middleware' => ['auth:sanctum']], function() {
-    Route::post('/animales',[AnimalController::class, 'store']);
-    Route::post('/logout',[LoginController::class, 'logout']);
+Route::group(['middleware' => ['auth:sanctum']], function () {
+    Route::post('/animales', [AnimalController::class, 'store']);
+    Route::post('/logout', [LoginController::class, 'logout']);
 });
 
 //Public Animal routes

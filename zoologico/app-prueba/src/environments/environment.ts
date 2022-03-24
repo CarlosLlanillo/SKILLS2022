@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://127.0.0.1:8000/api/',
-  animalImg: 'http://127.0.0.1:8000/assets/imagenes/',
+  apiUrl: 'laravel_zoologico/public/api/',
+  animalImg: 'laravel_zoologico/public/assets/imagenes/',
 };
 
 /*
